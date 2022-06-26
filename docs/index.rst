@@ -7,7 +7,7 @@ To clone the source code repository, run::
 
    git clone git@github.com:mateusoliveira43/python-project-template.git
 
-Check the project `README <https://github.com/mateusoliveira43/python-project-template/blob/main/README.md>`_ file for more instructions.
+Check the project `README <https://github.com/mateusoliveira43/python-project-template/blob/main/README.md>`_ file for instructions on how to run it.
 
 .. toctree::
    :maxdepth: 2

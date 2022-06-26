@@ -27,7 +27,7 @@ jobs:
 
       - name: Generate documentation
         run: |
-          sphinx-apidoc -M -P -o docs/modules source
+          sphinx-apidoc --module-first --private --output-dir docs/modules source
           sphinx-build -v -n docs public
 
       - name: Deploy documentation

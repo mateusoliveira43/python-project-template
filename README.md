@@ -7,7 +7,7 @@
 [![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
-Template for a Python project.
+Template for a Python project. Check the project's documentation [here](https://mateusoliveira43.github.io/python-project-template/).
 
 # Requirements
 
@@ -73,7 +73,7 @@ To run tests and coverage report, run
 pytest
 ```
 
-To see the html report, check [`tests/coverage-results/htmlcov/index.html`](tests/coverage-results/htmlcov/index.html).
+To see the html report, check `tests/coverage-results/htmlcov/index.html`.
 
 Tests and coverage configuration in [`pyproject.toml`](pyproject.toml) file.
 
@@ -135,6 +135,7 @@ bandit --recursive scripts
 
 To check known security vulnerabilities in Python dependencies, run
 ```
+safety check --file requirements/prod.txt --full-report
 safety check --file requirements/dev.txt --full-report
 ```
 
@@ -142,16 +143,16 @@ safety check --file requirements/dev.txt --full-report
 
 To check Python documentation generation, run
 ```
-sphinx-apidoc -M -P -o docs/modules source
+sphinx-apidoc --module-first --private --output-dir docs/modules source
 sphinx-build -W -T -v -n docs public
 ```
 
 To generate Python documentation, run
 ```
-sphinx-apidoc -M -P -o docs/modules source
+sphinx-apidoc --module-first --private --output-dir docs/modules source
 sphinx-build -v -n docs public
 ```
-Open `public/index.html` in the browser to see the documentation.
+To see the documentation , check `public/index.html`.
 
 Sphinx configuration in [`docs/conf.py`](docs/conf.py) file.
 

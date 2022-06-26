@@ -66,7 +66,7 @@ jobs:
 
       - name: Test documentation
         run: |
-          sphinx-apidoc -M -P -o docs/modules source
+          sphinx-apidoc --module-first --private --output-dir docs/modules source
           sphinx-build -W -T -v -n docs public
 
   docker-check:
