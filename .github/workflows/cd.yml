@@ -1,0 +1,37 @@
+name: Continuos Delivery
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  deploy-documentation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+          cache: "pip"
+          cache-dependency-path: "requirements/*.txt"
+
+      - name: Install Python dependencies
+        run: |
+          pip install -r requirements/prod.txt
+          pip install -r requirements/dev.txt
+
+      - name: Generate documentation
+        run: |
+          sphinx-apidoc --module-first --private --output-dir docs/modules source
+          sphinx-build -v -n docs public
+
+      - name: Deploy documentation
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: gh-pages
+          folder: public

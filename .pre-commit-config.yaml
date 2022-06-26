@@ -1,0 +1,56 @@
+default_stages: [commit]
+repos:
+  - repo: local
+    hooks:
+    - id: pytest
+      name: Python tests
+      entry: .venv/bin/pytest --no-cov
+      pass_filenames: false
+      language: python
+    - id: mypy
+      name: Python type check
+      entry: .venv/bin/mypy .
+      pass_filenames: false
+      language: python
+    - id: prospector
+      name: Python linter
+      entry: .venv/bin/prospector .
+      pass_filenames: false
+      language: python
+    - id: safety
+      name: Python dependencies security vulnerability scan
+      entry: .venv/bin/safety check --file requirements/dev.txt --full-report
+      pass_filenames: false
+      language: python
+  - repo: https://github.com/jorisroovers/gitlint
+    rev:  v0.17.0
+    hooks:
+    - id: gitlint
+      stages: [commit-msg]
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.10.1
+    hooks:
+    - id: isort
+      args:
+      - --check
+      - --diff
+  - repo: https://github.com/psf/black
+    rev: 22.3.0
+    hooks:
+    - id: black
+      args:
+      - --check
+      - --diff
+  - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
+    rev: 2.4.0
+    hooks:
+    - id: editorconfig-checker
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.4
+    hooks:
+    - id: bandit
+      exclude: tests
+  - repo: https://github.com/hadolint/hadolint
+    rev: v2.10.0
+    hooks:
+    - id: hadolint-docker

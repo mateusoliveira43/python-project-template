@@ -1,0 +1,78 @@
+name: Continuos Integration
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron:  '0 0 * * 1' # Every Monday at 00:00 UTC
+
+jobs:
+  python-check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [
+          "3.7",
+          "3.8",
+          "3.9",
+          "3.10",
+          "pypy-3.8"
+        ]
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+          cache-dependency-path: "requirements/*.txt"
+
+      - name: Install Python dependencies
+        run: |
+          pip install -r requirements/prod.txt
+          pip install -r requirements/dev.txt
+
+      - name: Python test and coverage
+        run: pytest
+
+      - name: Save html coverage report
+        if: ${{ always() && matrix.python-version == '3.10' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: html-coverage-report
+          path: tests/coverage-results/htmlcov/
+
+      - name: Python type check
+        run: mypy .
+
+      - name: Python linter
+        run: prospector .
+
+      - name: Code format
+        run: |
+          isort --check --diff .
+          black --check --diff .
+          ec -verbose
+
+      - name: Security vulnerability scan
+        run: |
+          bandit --recursive scripts
+          safety check --file requirements/prod.txt --full-report
+          safety check --file requirements/dev.txt --full-report
+
+      - name: Test documentation
+        run: |
+          sphinx-apidoc --module-first --private --output-dir docs/modules source
+          sphinx-build -W -T -v -n docs public
+
+  docker-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: hadolint/hadolint-action@v2.0.0
+        with:
+          dockerfile: docker/Dockerfile
