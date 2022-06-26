@@ -444,7 +444,7 @@ typed-ast==1.5.4; python_version < "3.8" and implementation_name == "cpython" an
 types-toml==0.10.7 \
     --hash=sha256:a567fe2614b177d537ad99a661adc9bfc8c55a46f95e66370a4ed2dd171335f9 \
     --hash=sha256:05a8da4bfde2f1ee60e90c7071c063b461f74c63a9c3c1099470c08d6fa58615
-typing-extensions==4.2.0; python_version < "3.8" and python_full_version >= "3.6.2" and python_version >= "3.7" \
+typing-extensions==4.2.0; python_full_version >= "3.6.2" and python_version >= "3.7" \
     --hash=sha256:6657594ee297170d19f67d55c05852a874e7eb634f4f753dbd667855e07c1708 \
     --hash=sha256:f1c24655a0da0d1b67f07e17a5e6b2a105894e6824b92096378bb3668ef02376
 urllib3==1.26.9; python_version >= "3.7" and python_full_version < "3.0.0" and python_version < "4" or python_full_version >= "3.5.0" and python_version < "4" and python_version >= "3.7" \
