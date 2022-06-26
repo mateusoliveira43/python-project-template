@@ -416,7 +416,7 @@ toml==0.10.2; (python_version >= "2.6" and python_full_version < "3.0.0") or (py
 tomli==2.0.1; python_version < "3.11" and python_full_version >= "3.6.2" and python_version >= "3.7" and python_full_version <= "3.11.0a6" \
     --hash=sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc \
     --hash=sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f
-typed-ast==1.5.4; python_version < "3.8" and python_full_version >= "3.6.2" and python_version >= "3.6" \
+typed-ast==1.5.4; python_version < "3.8" and implementation_name == "cpython" and python_full_version >= "3.6.2" and python_version >= "3.6" \
     --hash=sha256:669dd0c4167f6f2cd9f57041e03c3c2ebf9063d0757dc89f79ba1daa2bfca9d4 \
     --hash=sha256:211260621ab1cd7324e0798d6be953d00b74e0428382991adfddb352252f1d62 \
     --hash=sha256:267e3f78697a6c00c689c03db4876dd1efdfea2f251a5ad6555e82a26847b4ac \
