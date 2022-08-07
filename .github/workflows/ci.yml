@@ -36,6 +36,9 @@ jobs:
           pip install -r requirements/prod.txt
           pip install -r requirements/dev.txt
 
+      - name: Check commit messages
+        run: gitlint
+
       - name: Python test and coverage
         run: pytest
 
