@@ -25,6 +25,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }} # Checkout pull request HEAD commit instead of merge commit
+
       - uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
@@ -37,7 +40,7 @@ jobs:
           pip install -r requirements/dev.txt
 
       - name: Check commit messages
-        run: gitlint --commits e81c308b...$GITHUB_SHA
+        run: gitlint --commits e81c308b...$GITHUB_SHA --debug
 
       - name: Python test and coverage
         run: pytest
