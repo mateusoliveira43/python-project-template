@@ -37,7 +37,7 @@ jobs:
           pip install -r requirements/dev.txt
 
       - name: Check commit messages
-        run: gitlint
+        run: gitlint --commits e81c308b...
 
       - name: Python test and coverage
         run: pytest
