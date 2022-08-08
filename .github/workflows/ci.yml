@@ -40,7 +40,7 @@ jobs:
           pip install -r requirements/dev.txt
 
       - name: Check commit messages
-        run: gitlint --commits e81c308b... --debug
+        run: gitlint --commits e81c308bf961d35b901575f41e4c353051fed947.. --debug
 
       - name: Python test and coverage
         run: pytest
