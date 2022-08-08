@@ -1,1 +1,1 @@
-"""configuration of the project's tests."""
+"""Project's tests."""
