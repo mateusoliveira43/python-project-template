@@ -25,9 +25,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }} # Checkout pull request HEAD commit instead of merge commit
-          fetch-depth: 0
 
       - uses: actions/setup-python@v3
         with:
@@ -39,9 +36,6 @@ jobs:
         run: |
           pip install -r requirements/prod.txt
           pip install -r requirements/dev.txt
-
-      - name: Check commit messages
-        run: gitlint --commits e81c308bf961d35b901575f41e4c353051fed947.. --debug
 
       - name: Python test and coverage
         run: pytest
@@ -63,7 +57,6 @@ jobs:
         run: |
           isort --check --diff .
           black --check --diff .
-          ec -verbose
 
       - name: Security vulnerability scan
         run: |
@@ -83,3 +76,26 @@ jobs:
       - uses: hadolint/hadolint-action@v2.0.0
         with:
           dockerfile: docker/Dockerfile
+
+  project-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }} # Checkout pull request HEAD commit instead of merge commit
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+          cache: "pip"
+          cache-dependency-path: "requirements/*.txt"
+
+      - name: Install Python dependencies
+        run: pip install -r requirements/dev.txt
+
+      - name: Check commit messages
+        run: gitlint --commits e81c308bf961d35b901575f41e4c353051fed947..
+
+      - name: Code format
+        run: ec -verbose
