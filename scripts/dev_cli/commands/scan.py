@@ -1,5 +1,5 @@
-from scripts.cly.colors import print_flashy
-from scripts.cly.utils import run_command
+from cly.colors import print_flashy
+from cly.utils import run_command
 
 
 def scan(code: bool = False, dependencies: bool = False) -> None:

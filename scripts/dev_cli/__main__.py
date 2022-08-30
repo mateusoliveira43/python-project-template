@@ -1,4 +1,4 @@
-from scripts.cly import config
+from cly import config
 
 from . import __version__
 from .commands.doc import doc
@@ -9,7 +9,7 @@ from .commands.scan import scan
 CLI_CONFIG = {
     "name": "Development scripts",
     "description": "Development scripts for project.",
-    "epilog": None,
+    "epilog": "",
     "version": __version__,
 }
 

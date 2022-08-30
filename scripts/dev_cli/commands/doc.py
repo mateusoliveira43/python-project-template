@@ -1,10 +1,10 @@
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from scripts.cly.colors import print_flashy
-from scripts.cly.utils import run_command
+from cly.colors import print_flashy
+from cly.utils import run_command
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 DOCUMENTATION_FOLDER = PROJECT_ROOT / "docs"
 SOURCE_FOLDER = PROJECT_ROOT / "source"
 

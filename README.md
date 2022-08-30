@@ -99,7 +99,7 @@ Python type checker configuration in [`pyproject.toml`](pyproject.toml) file.
 
 To run Python linter, run
 ```
-./scripts/dev.py lint
+dev lint
 ```
 
 Python linter configuration in [`.prospector.yaml`](.prospector.yaml) and [`tests/.prospector.yaml`](tests/.prospector.yaml) files.
@@ -108,12 +108,12 @@ Python linter configuration in [`.prospector.yaml`](.prospector.yaml) and [`test
 
 To check Python code format, run
 ```
-./scripts/dev.py format --check
+dev format --check
 ```
 
 To format Python code, run
 ```
-./scripts/dev.py format
+dev format
 ```
 
 black and isort configuration in [`pyproject.toml`](pyproject.toml) file.
@@ -129,24 +129,24 @@ File format configuration in [`.editorconfig`](.editorconfig) file.
 
 To check common security issues in Python code, run
 ```
-./scripts/dev.py scan --code
+dev scan --code
 ```
 
 To check known security vulnerabilities in Python dependencies, run
 ```
-./scripts/dev.py scan --dependencies
+dev scan --dependencies
 ```
 
 ## Documentation
 
 To check Python documentation generation, run
 ```
-./scripts/dev.py doc --check
+dev doc --check
 ```
 
 To generate Python documentation, run
 ```
-./scripts/dev.py doc
+dev doc
 ```
 To see the documentation , check `public/index.html`.
 
@@ -184,4 +184,3 @@ poetry export --format requirements.txt --output requirements/dev.txt --dev
 # License
 
 This repository is licensed under the terms of [MIT License](LICENSE).
-
