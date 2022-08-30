@@ -40,29 +40,38 @@ To deactivate virtual environment, run `CTRL+D` or `exit`.
 
 ## Docker
 
+To get script help, run
+```
+./scripts/docky.py
+./scripts/docky.py <command> --help
+```
+
 To connect to container's shell, run
 ```
-docker/run.sh
+./scripts/docky.py run
 ```
-and run `poetry shell` to activate virtual environment.
-
 To exit the container's shell, run `CTRL+D` or `exit`.
 
 To run Dockerfile linter, run
 ```
-docker/lint.sh
+./scripts/docky.py lint
 ```
 
-To remove the project's containers, images, volumes and networks, run
+To scan Docker Image, run
 ```
-docker/down.sh
+./scripts/docky.py scan
 ```
 
-To change Docker configuration, change the variables in `.env` file.
+To remove the project's containers, networks, images and volumes, run
+```
+./scripts/docky.py down
+```
+
+To change containers, images and volumes configuration, change the variables in `.env` file.
+
+Run the commands presented in the following sections in the container.
 
 # Quality
-
-Run the commands presented in this section with the project's virtual environment activated.
 
 The quality metrics of the project are reproduced by the continuos integration (CI) pipeline of the project. CI configuration in [`.github/workflows/ci.yml`](.github/workflows/ci.yml) file.
 
@@ -90,34 +99,24 @@ Python type checker configuration in [`pyproject.toml`](pyproject.toml) file.
 
 To run Python linter, run
 ```
-prospector
+./scripts/dev.py lint
 ```
 
-Python linter configuration in [`.prospector.yaml`](.prospector.yaml) file.
+Python linter configuration in [`.prospector.yaml`](.prospector.yaml) and [`tests/.prospector.yaml`](tests/.prospector.yaml) files.
 
 ## Code formatters
 
-To check Python code imports format, run
-```
-isort --check --diff .
-```
-
-To format Python code imports, run
-```
-isort .
-```
-
 To check Python code format, run
 ```
-black --check --diff .
+./scripts/dev.py format --check
 ```
 
 To format Python code, run
 ```
-black .
+./scripts/dev.py format
 ```
 
-isort and black configuration in [`pyproject.toml`](pyproject.toml) file.
+black and isort configuration in [`pyproject.toml`](pyproject.toml) file.
 
 To check all repository's files format, run
 ```
@@ -130,27 +129,24 @@ File format configuration in [`.editorconfig`](.editorconfig) file.
 
 To check common security issues in Python code, run
 ```
-bandit --recursive scripts
+./scripts/dev.py scan --code
 ```
 
 To check known security vulnerabilities in Python dependencies, run
 ```
-safety check --file requirements/prod.txt --full-report
-safety check --file requirements/dev.txt --full-report
+./scripts/dev.py scan --dependencies
 ```
 
 ## Documentation
 
 To check Python documentation generation, run
 ```
-sphinx-apidoc --module-first --private --output-dir docs/modules source
-sphinx-build -W -T -v -n docs public
+./scripts/dev.py doc --check
 ```
 
 To generate Python documentation, run
 ```
-sphinx-apidoc --module-first --private --output-dir docs/modules source
-sphinx-build -v -n docs public
+./scripts/dev.py doc
 ```
 To see the documentation , check `public/index.html`.
 

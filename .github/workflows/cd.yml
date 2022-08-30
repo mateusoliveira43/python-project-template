@@ -24,11 +24,10 @@ jobs:
         run: |
           pip install -r requirements/prod.txt
           pip install -r requirements/dev.txt
+          pip install -e .
 
       - name: Generate documentation
-        run: |
-          sphinx-apidoc --module-first --private --output-dir docs/modules source
-          sphinx-build -v -n docs public
+        run: dev doc
 
       - name: Deploy documentation
         uses: JamesIves/github-pages-deploy-action@v4.3.3

@@ -1,20 +1,24 @@
 services:
   python-project-template:
-    container_name: ${PROJECT_NAME}
-    image: ${PROJECT_NAME}
-    user: ${PROJECT_NAME}
+    image: ${SERVICE_NAME}
+    container_name: ${SERVICE_NAME}
     hostname: docker
-    working_dir: ${WORK_DIR}
+    entrypoint: ["./docker/entrypoint.sh"]
+    command: ["/bin/bash"]
     build:
-      context: ./
-      dockerfile: ./docker/Dockerfile
+      context: ./docker/
       args:
-        USER_ID: ${USER_ID}
         GROUP_ID: ${GROUP_ID}
-        PROJECT_NAME: ${PROJECT_NAME}
+        USER_ID: ${USER_ID}
+        USER_NAME: ${USER_NAME}
         WORK_DIR: ${WORK_DIR}
     volumes:
       - type: bind
         source: ./
         target: ${WORK_DIR}/
-      - ${WORK_DIR}/.venv
+      - type: volume
+        source: virtual-environment
+        target: ${WORK_DIR}/.venv/
+
+volumes:
+  virtual-environment:
