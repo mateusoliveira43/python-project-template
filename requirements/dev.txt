@@ -58,7 +58,7 @@ click==8.0.3; python_version >= "3.6" and python_full_version >= "3.6.2" \
 colorama==0.4.5; platform_system == "Windows" and python_version >= "3.7" and python_full_version >= "3.6.2" and sys_platform == "win32" and python_version < "4.0" and (python_version >= "3.7" and python_full_version < "3.0.0" and sys_platform == "win32" or sys_platform == "win32" and python_version >= "3.7" and python_full_version >= "3.5.0") and (python_version >= "3.6" and python_full_version < "3.0.0" and sys_platform == "win32" and (python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.6") or sys_platform == "win32" and python_version >= "3.6" and (python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.6") and python_full_version >= "3.5.0") \
     --hash=sha256:854bf444933e37f5824ae7bfc1e98d5bce2ebe4160d46b5edf346a89358e99da \
     --hash=sha256:e6c6b4334fc50988a639d9b98aa429a0b57da6e17b9a44f0451f930b6967b7a4
-coverage==6.4.3; python_version >= "3.7" \
+coverage[toml]==6.4.3; python_version >= "3.7" \
     --hash=sha256:f50d3a822947572496ea922ee7825becd8e3ae6fbd2400cd8236b7d64b17f285 \
     --hash=sha256:d5191d53afbe5b6059895fa7f58223d3751c42b8101fb3ce767e1a0b1a1d8f87 \
     --hash=sha256:04010af3c06ce2bfeb3b1e4e05d136f88d88c25f76cd4faff5d1fd84d11581ea \
