@@ -9,9 +9,13 @@
 
 Template for a Python project. Check the project's documentation [here](https://mateusoliveira43.github.io/python-project-template/).
 
-# Requirements
+## Requirements
 
 To run the project, it is necessary the following tools:
+
+- [Python](https://wiki.python.org/moin/BeginnersGuide/Download) 3.7 or higher
+
+It can also be run with
 
 - [Poetry](https://python-poetry.org/docs/#installation)
 
@@ -20,33 +24,51 @@ Or
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
-# Usage
+## Development
 
-Follow one of the next sections.
+Choose one of the next sections to setup your development environment.
 
-## Poetry
+### Python
+
+To create a virtual environment, run
+```
+virtualenv .venv
+```
+
+To activate the virtual environment, run
+```
+source .venv/bin/activate
+```
+
+To install the template's development requirements in the virtual environment, run
+```
+pip install -r requirements/dev.txt
+pip install -e .
+```
+
+To deactivate the virtual environment, run `deactivate`.
+
+Run the commands of the following sections with the virtual environment active.
+
+### Poetry
 
 To install project dependencies and create a virtual environment, run
 ```
 poetry install
 ```
 
-To activate virtual environment, run
+To activate the virtual environment, run
 ```
 poetry shell
 ```
 
-To deactivate virtual environment, run `CTRL+D` or `exit`.
+To deactivate the virtual environment, run `CTRL+D` or `exit`.
 
-## Docker
+Run the commands of the following sections with the virtual environment active.
 
-To get script help, run
-```
-./scripts/docky.py
-./scripts/docky.py <command> --help
-```
+### Docker
 
-To connect to container's shell, run
+To connect to Container's shell, run
 ```
 ./scripts/docky.py run
 ```
@@ -62,20 +84,34 @@ To scan Docker Image, run
 ./scripts/docky.py scan
 ```
 
-To remove the project's containers, networks, images and volumes, run
+To remove the project's Containers, Networks, Images and Volumes, run
 ```
 ./scripts/docky.py down
 ```
 
-To change containers, images and volumes configuration, change the variables in `.env` file.
+To get script help, run
+```
+./scripts/docky.py
+./scripts/docky.py <command> --help
+```
 
-Run the commands presented in the following sections in the container.
+To change Container configuration, change the variables in `.env` file.
 
-# Quality
+Run the commands of the following sections in the Container.
+
+## Update requirements
+
+To update requirements files, run
+```
+poetry export --format requirements.txt --output requirements/prod.txt
+poetry export --format requirements.txt --output requirements/dev.txt --dev
+```
+
+## Quality
 
 The quality metrics of the project are reproduced by the continuos integration (CI) pipeline of the project. CI configuration in [`.github/workflows/ci.yml`](.github/workflows/ci.yml) file.
 
-## Tests
+### Tests
 
 To run tests and coverage report, run
 ```
@@ -84,18 +120,18 @@ pytest
 
 To see the html report, check `tests/coverage-results/htmlcov/index.html`.
 
-Tests and coverage configuration in [`pyproject.toml`](pyproject.toml) file.
+Tests and coverage configuration in [`pyproject.toml`](pyproject.toml) file, at `[tool.pytest.ini_options]` section.
 
-## Type checking
+### Type checking
 
 To run Python type checker, run
 ```
 mypy .
 ```
 
-Python type checker configuration in [`pyproject.toml`](pyproject.toml) file.
+Python type checker configuration in [`pyproject.toml`](pyproject.toml) file, at `[tool.mypy]` section.
 
-## Linter
+### Linter
 
 To run Python linter, run
 ```
@@ -104,7 +140,7 @@ dev lint
 
 Python linter configuration in [`.prospector.yaml`](.prospector.yaml) and [`tests/.prospector.yaml`](tests/.prospector.yaml) files.
 
-## Code formatters
+### Code formatters
 
 To check Python code format, run
 ```
@@ -116,7 +152,7 @@ To format Python code, run
 dev format
 ```
 
-black and isort configuration in [`pyproject.toml`](pyproject.toml) file.
+Python code formatters configuration in [`pyproject.toml`](pyproject.toml) file, at `[tool.black]` and `[tool.isort]` sections.
 
 To check all repository's files format, run
 ```
@@ -125,7 +161,7 @@ ec -verbose
 
 File format configuration in [`.editorconfig`](.editorconfig) file.
 
-## Security vulnerability scanners
+### Security vulnerability scanners
 
 To check common security issues in Python code, run
 ```
@@ -137,7 +173,7 @@ To check known security vulnerabilities in Python dependencies, run
 dev scan --dependencies
 ```
 
-## Documentation
+### Documentation
 
 To check Python documentation generation, run
 ```
@@ -150,7 +186,9 @@ dev doc
 ```
 To see the documentation , check `public/index.html`.
 
-Sphinx configuration in [`docs/conf.py`](docs/conf.py) file.
+Python documentation generator configuration in [`docs/conf.py`](docs/conf.py) file.
+
+The documentation is updated automatically by the continuous deploy (CD) pipeline of the project. CD configuration in [`.github/workflows/cd.yml`](.github/workflows/cd.yml) file.
 
 ## Pre-commit
 
@@ -173,14 +211,6 @@ pre-commit run --all-files
 
 pre-commit configuration in [`.pre-commit-config.yaml`](.pre-commit-config.yaml) file.
 
-# Update requirements
-
-To update requirements files, run
-```
-poetry export --format requirements.txt --output requirements/prod.txt
-poetry export --format requirements.txt --output requirements/dev.txt --dev
-```
-
-# License
+## License
 
 This repository is licensed under the terms of [MIT License](LICENSE).

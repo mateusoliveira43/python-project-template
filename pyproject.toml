@@ -48,6 +48,10 @@ python_version = "3.7"
 strict = true
 show_error_codes = true
 
+[tool.black]
+line-length = 79
+verbose = true
+
 [tool.isort]
 profile = "black"
 line_length = 79
@@ -55,7 +59,3 @@ verbose = true
 multi_line_output = 3
 include_trailing_comma = true
 skip_gitignore = true
-
-[tool.black]
-line-length = 79
-verbose = true
