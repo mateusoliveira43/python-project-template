@@ -3,6 +3,8 @@
 from cly.colors import print_flashy
 from cly.utils import run_command
 
+from ..config import PROJECT_ROOT
+
 
 def format_code(check: bool = False) -> None:
     """
@@ -16,10 +18,10 @@ def format_code(check: bool = False) -> None:
     """
     if check:
         print_flashy("Checking code format...")
-        run_command("black --check --diff .")
-        run_command("isort --check --diff .")
         # TODO run both and exit status code of sum
+        run_command(f"black --check --diff {PROJECT_ROOT}")
+        run_command(f"isort --check --diff {PROJECT_ROOT}")
     else:
         print_flashy("Formatting code...")
-        run_command("black .")
-        run_command("isort .")
+        run_command(f"black {PROJECT_ROOT}")
+        run_command(f"isort {PROJECT_ROOT}")

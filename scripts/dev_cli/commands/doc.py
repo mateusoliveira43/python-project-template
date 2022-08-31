@@ -1,14 +1,15 @@
 """Generate and check project documentation command."""
 
-from pathlib import Path
 from tempfile import TemporaryDirectory
 
 from cly.colors import print_flashy
 from cly.utils import run_command
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
-DOCUMENTATION_FOLDER = PROJECT_ROOT / "docs"
-SOURCE_FOLDER = PROJECT_ROOT / "source"
+from ..config import (
+    DOCUMENTATION_FOLDER,
+    DOCUMENTATION_OUTPUT_FOLDER,
+    SOURCE_FOLDER,
+)
 
 
 def doc(check: bool = False) -> None:
@@ -42,4 +43,7 @@ def doc(check: bool = False) -> None:
             )
     else:
         print_flashy("Generating documentation...")
-        run_command(f"sphinx-build -vna {DOCUMENTATION_FOLDER} public")
+        run_command(
+            f"sphinx-build -vna {DOCUMENTATION_FOLDER} "
+            f"{DOCUMENTATION_OUTPUT_FOLDER}"
+        )

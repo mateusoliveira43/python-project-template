@@ -3,6 +3,8 @@
 from cly.colors import print_flashy
 from cly.utils import run_command
 
+from ..config import REQUIREMENTS_FOLDER
+
 
 def scan(code: bool = False, dependencies: bool = False) -> None:
     """
@@ -21,5 +23,5 @@ def scan(code: bool = False, dependencies: bool = False) -> None:
         run_command("bandit --exclude ./tests,./.venv --recursive .")
     if dependencies:
         print_flashy("Scanning Python dependencies...")
-        run_command("safety check --full-report --file requirements/prod.txt")
-        run_command("safety check --full-report --file requirements/dev.txt")
+        for file in REQUIREMENTS_FOLDER.iterdir():
+            run_command(f"safety check --full-report --file {file}")
