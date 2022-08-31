@@ -1,27 +1,5 @@
 default_stages: [commit]
 repos:
-  - repo: local
-    hooks:
-    - id: pytest
-      name: Python tests
-      entry: .venv/bin/pytest --no-cov
-      pass_filenames: false
-      language: python
-    - id: mypy
-      name: Python type check
-      entry: .venv/bin/mypy .
-      pass_filenames: false
-      language: python
-    - id: prospector
-      name: Python linter
-      entry: .venv/bin/prospector .
-      pass_filenames: false
-      language: python
-    - id: safety
-      name: Python dependencies security vulnerability scan
-      entry: .venv/bin/safety check --file requirements/dev.txt --full-report
-      pass_filenames: false
-      language: python
   - repo: https://github.com/jorisroovers/gitlint
     rev:  v0.17.0
     hooks:
@@ -35,7 +13,7 @@ repos:
       - --check
       - --diff
   - repo: https://github.com/psf/black
-    rev: 22.3.0
+    rev: 22.6.0
     hooks:
     - id: black
       args:
