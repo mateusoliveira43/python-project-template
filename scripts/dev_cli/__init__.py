@@ -1,3 +1,5 @@
+"""Development scripts Command Line Interface (CLI) package."""
+
 import sys
 from pathlib import Path
 

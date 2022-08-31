@@ -1,3 +1,5 @@
+"""Generate and check project documentation command."""
+
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -35,7 +37,8 @@ def doc(check: bool = False) -> None:
         print_flashy("Checking documentation...")
         with TemporaryDirectory() as temporary_directory:
             run_command(
-                f"sphinx-build -WTvna {DOCUMENTATION_FOLDER} {temporary_directory}"
+                "sphinx-build -WTvna "
+                f"{DOCUMENTATION_FOLDER} {temporary_directory}"
             )
     else:
         print_flashy("Generating documentation...")

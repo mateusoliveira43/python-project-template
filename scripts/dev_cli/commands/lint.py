@@ -1,3 +1,5 @@
+"""Lint Python code command."""
+
 from cly.colors import print_flashy
 from cly.utils import run_command
 

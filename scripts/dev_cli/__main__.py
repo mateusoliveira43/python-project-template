@@ -1,3 +1,5 @@
+"""Development scripts CLI."""
+
 from cly import config
 
 from . import __version__
