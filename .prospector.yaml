@@ -1,11 +1,12 @@
 strictness: veryhigh
 doc-warnings: true
-test-warnings: true
 member-warnings: true
 max-line-length: 79
 
 ignore-paths:
   - docs
+  - scripts/cly
+  - scripts/docky
 
 pydocstyle:
   disable:

@@ -1,0 +1,4 @@
+strictness: veryhigh
+test-warnings: true
+member-warnings: true
+max-line-length: 79

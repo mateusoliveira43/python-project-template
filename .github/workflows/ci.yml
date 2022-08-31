@@ -36,6 +36,7 @@ jobs:
         run: |
           pip install -r requirements/prod.txt
           pip install -r requirements/dev.txt
+          pip install -e .
 
       - name: Python test and coverage
         run: pytest
@@ -51,31 +52,41 @@ jobs:
         run: mypy .
 
       - name: Python linter
-        run: prospector .
+        run: dev lint
 
       - name: Code format
-        run: |
-          isort --check --diff .
-          black --check --diff .
+        run: dev format --check
 
-      - name: Security vulnerability scan
-        run: |
-          bandit --recursive scripts
-          safety check --file requirements/prod.txt --full-report
-          safety check --file requirements/dev.txt --full-report
+      - name: Security vulnerability scan in Python code
+        run: dev scan --code
+
+      - name: Security vulnerability scan in Python dependencies
+        run: dev scan --dependencies
 
       - name: Test documentation
-        run: |
-          sphinx-apidoc --module-first --private --output-dir docs/modules source
-          sphinx-build -W -T -v -n docs public
+        run: dev doc --check
 
   docker-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: hadolint/hadolint-action@v2.0.0
+      - uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: docker build --tag python-project-template - < docker/Dockerfile
+
+      - name: Dockerfile linter
+        uses: hadolint/hadolint-action@v2.0.0
         with:
           dockerfile: docker/Dockerfile
+
+      - name: Docker image security vulnerability scan
+        continue-on-error: true
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: python-project-template
+          args: --severity-threshold=medium --file=docker/Dockerfile
 
   project-check:
     runs-on: ubuntu-latest
@@ -92,7 +103,9 @@ jobs:
           cache-dependency-path: "requirements/*.txt"
 
       - name: Install Python dependencies
-        run: pip install -r requirements/dev.txt
+        run: |
+          pip install -r requirements/prod.txt
+          pip install -r requirements/dev.txt
 
       - name: Check commit messages
         run: gitlint --commits e81c308bf961d35b901575f41e4c353051fed947..

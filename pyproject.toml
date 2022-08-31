@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "python-project-template"
+name = "source"
 version = "0.1.0"
 description = "Template for a Python project."
 authors = ["Mateus Oliveira"]
@@ -14,16 +14,19 @@ black = "^22.3.0"
 editorconfig-checker = "^2.4.0"
 gitlint = "^0.17.0"
 isort = "^5.10.1"
-mypy = "^0.961"
+mypy = "^0.971"
 pre-commit = "^2.19.0"
 prospector = "^1.7.7"
 pytest = "^7.1.2"
 pytest-cov = "^3.0.0"
-safety = "^1.10.3"
+safety = "^2.1.1"
 Sphinx = "^5.0.2"
 sphinx-rtd-theme = "^1.0.0"
 toml = "^0.10.2"
 types-toml = "^0.10.7"
+
+[tool.poetry.scripts]
+dev = "scripts.dev_cli.__main__:CLI"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -45,6 +48,10 @@ python_version = "3.7"
 strict = true
 show_error_codes = true
 
+[tool.black]
+line-length = 79
+verbose = true
+
 [tool.isort]
 profile = "black"
 line_length = 79
@@ -52,7 +59,3 @@ verbose = true
 multi_line_output = 3
 include_trailing_comma = true
 skip_gitignore = true
-
-[tool.black]
-line-length = 79
-verbose = true

@@ -9,9 +9,13 @@
 
 Template for a Python project. Check the project's documentation [here](https://mateusoliveira43.github.io/python-project-template/).
 
-# Requirements
+## Requirements
 
 To run the project, it is necessary the following tools:
+
+- [Python](https://wiki.python.org/moin/BeginnersGuide/Download) 3.7 or higher
+
+It can also be run with
 
 - [Poetry](https://python-poetry.org/docs/#installation)
 
@@ -20,53 +24,94 @@ Or
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
-# Usage
+## Development
 
-Follow one of the next sections.
+Choose one of the next sections to setup your development environment.
 
-## Poetry
+### Python
+
+To create a virtual environment, run
+```
+virtualenv .venv
+```
+
+To activate the virtual environment, run
+```
+source .venv/bin/activate
+```
+
+To install the template's development requirements in the virtual environment, run
+```
+pip install -r requirements/dev.txt
+pip install -e .
+```
+
+To deactivate the virtual environment, run `deactivate`.
+
+Run the commands of the following sections with the virtual environment active.
+
+### Poetry
 
 To install project dependencies and create a virtual environment, run
 ```
 poetry install
 ```
 
-To activate virtual environment, run
+To activate the virtual environment, run
 ```
 poetry shell
 ```
 
-To deactivate virtual environment, run `CTRL+D` or `exit`.
+To deactivate the virtual environment, run `CTRL+D` or `exit`.
 
-## Docker
+Run the commands of the following sections with the virtual environment active.
 
-To connect to container's shell, run
+### Docker
+
+To connect to Container's shell, run
 ```
-docker/run.sh
+./scripts/docky.py run
 ```
-and run `poetry shell` to activate virtual environment.
-
 To exit the container's shell, run `CTRL+D` or `exit`.
 
 To run Dockerfile linter, run
 ```
-docker/lint.sh
+./scripts/docky.py lint
 ```
 
-To remove the project's containers, images, volumes and networks, run
+To scan Docker Image, run
 ```
-docker/down.sh
+./scripts/docky.py scan
 ```
 
-To change Docker configuration, change the variables in `.env` file.
+To remove the project's Containers, Networks, Images and Volumes, run
+```
+./scripts/docky.py down
+```
 
-# Quality
+To get script help, run
+```
+./scripts/docky.py
+./scripts/docky.py <command> --help
+```
 
-Run the commands presented in this section with the project's virtual environment activated.
+To change Container configuration, change the variables in `.env` file.
+
+Run the commands of the following sections in the Container.
+
+## Update requirements
+
+To update requirements files, run
+```
+poetry export --format requirements.txt --output requirements/prod.txt
+poetry export --format requirements.txt --output requirements/dev.txt --dev
+```
+
+## Quality
 
 The quality metrics of the project are reproduced by the continuos integration (CI) pipeline of the project. CI configuration in [`.github/workflows/ci.yml`](.github/workflows/ci.yml) file.
 
-## Tests
+### Tests
 
 To run tests and coverage report, run
 ```
@@ -75,49 +120,39 @@ pytest
 
 To see the html report, check `tests/coverage-results/htmlcov/index.html`.
 
-Tests and coverage configuration in [`pyproject.toml`](pyproject.toml) file.
+Tests and coverage configuration in [`pyproject.toml`](pyproject.toml) file, at `[tool.pytest.ini_options]` section.
 
-## Type checking
+### Type checking
 
 To run Python type checker, run
 ```
 mypy .
 ```
 
-Python type checker configuration in [`pyproject.toml`](pyproject.toml) file.
+Python type checker configuration in [`pyproject.toml`](pyproject.toml) file, at `[tool.mypy]` section.
 
-## Linter
+### Linter
 
 To run Python linter, run
 ```
-prospector
+dev lint
 ```
 
-Python linter configuration in [`.prospector.yaml`](.prospector.yaml) file.
+Python linter configuration in [`.prospector.yaml`](.prospector.yaml) and [`tests/.prospector.yaml`](tests/.prospector.yaml) files.
 
-## Code formatters
-
-To check Python code imports format, run
-```
-isort --check --diff .
-```
-
-To format Python code imports, run
-```
-isort .
-```
+### Code formatters
 
 To check Python code format, run
 ```
-black --check --diff .
+dev format --check
 ```
 
 To format Python code, run
 ```
-black .
+dev format
 ```
 
-isort and black configuration in [`pyproject.toml`](pyproject.toml) file.
+Python code formatters configuration in [`pyproject.toml`](pyproject.toml) file, at `[tool.black]` and `[tool.isort]` sections.
 
 To check all repository's files format, run
 ```
@@ -126,35 +161,34 @@ ec -verbose
 
 File format configuration in [`.editorconfig`](.editorconfig) file.
 
-## Security vulnerability scanners
+### Security vulnerability scanners
 
 To check common security issues in Python code, run
 ```
-bandit --recursive scripts
+dev scan --code
 ```
 
 To check known security vulnerabilities in Python dependencies, run
 ```
-safety check --file requirements/prod.txt --full-report
-safety check --file requirements/dev.txt --full-report
+dev scan --dependencies
 ```
 
-## Documentation
+### Documentation
 
 To check Python documentation generation, run
 ```
-sphinx-apidoc --module-first --private --output-dir docs/modules source
-sphinx-build -W -T -v -n docs public
+dev doc --check
 ```
 
 To generate Python documentation, run
 ```
-sphinx-apidoc --module-first --private --output-dir docs/modules source
-sphinx-build -v -n docs public
+dev doc
 ```
 To see the documentation , check `public/index.html`.
 
-Sphinx configuration in [`docs/conf.py`](docs/conf.py) file.
+Python documentation generator configuration in [`docs/conf.py`](docs/conf.py) file.
+
+The documentation is updated automatically by the continuous deploy (CD) pipeline of the project. CD configuration in [`.github/workflows/cd.yml`](.github/workflows/cd.yml) file.
 
 ## Pre-commit
 
@@ -177,15 +211,6 @@ pre-commit run --all-files
 
 pre-commit configuration in [`.pre-commit-config.yaml`](.pre-commit-config.yaml) file.
 
-# Update requirements
-
-To update requirements files, run
-```
-poetry export --format requirements.txt --output requirements/prod.txt
-poetry export --format requirements.txt --output requirements/dev.txt --dev
-```
-
-# License
+## License
 
 This repository is licensed under the terms of [MIT License](LICENSE).
-
