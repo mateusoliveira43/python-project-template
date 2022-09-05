@@ -9,6 +9,8 @@
 
 Template for a Python project. Check the project's documentation [here](https://mateusoliveira43.github.io/python-project-template/).
 
+### [Check out the template's Wiki!](https://github.com/mateusoliveira43/python-project-template/wiki)
+
 ## Requirements
 
 To run the project, it is necessary the following tools:
