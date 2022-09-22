@@ -4,6 +4,7 @@ import argparse
 import functools
 import inspect
 import sys
+import textwrap
 from typing import Any, Callable, Dict, Iterable, Optional
 
 from .colors import color_text
@@ -17,6 +18,7 @@ VERSION_MESSAGE = "Show script's version."
 MAJOR_VERSION = 3
 MINOR_VERSION = 7
 PYTHON_MINIMUM_VERSION = (MAJOR_VERSION, MINOR_VERSION)
+OptionalSubParser = Optional[argparse._SubParsersAction]
 
 
 def check_python_minimum_version() -> None:
@@ -76,7 +78,7 @@ class CustomFormatter(argparse.HelpFormatter):
 
     def _format_usage(
         self,
-        usage: str,
+        usage: Optional[str],
         actions: Iterable[argparse.Action],
         groups: Iterable[argparse._ArgumentGroup],
         prefix: Optional[str],
@@ -86,7 +88,7 @@ class CustomFormatter(argparse.HelpFormatter):
 
         Parameters
         ----------
-        usage : str
+        usage : Optional[str]
             usage.
         actions : Iterable[argparse.Action]
             argparse actions.
@@ -147,6 +149,38 @@ class CustomFormatter(argparse.HelpFormatter):
         comma = ", "
         return f"{comma.join(action.option_strings)} {metavar}"
 
+    def _fill_text(self, text: str, width: int, indent: str) -> str:
+        """
+        Format text to fit desired width.
+
+        Breaks text in paragraphs so it does not exceed the width limit,
+        respecting indentation.
+
+        Parameters
+        ----------
+        text : str
+            Text to be formatted.
+        width : int
+            Width limit.
+        indent : str
+            Indentation.
+
+        Returns
+        -------
+        str
+            Formatted text.
+
+        """
+        return "\n\n".join(
+            textwrap.fill(
+                line,
+                width,
+                initial_indent=indent,
+                subsequent_indent=indent,
+            )
+            for line in text.split("\n\n")
+        )
+
 
 # pylint: disable=too-many-instance-attributes
 class ConfiguredParser:
@@ -158,7 +192,7 @@ class ConfiguredParser:
     version: str
     add_help: bool
     parser: argparse.ArgumentParser
-    subparser: Optional[argparse._SubParsersAction]
+    subparser: OptionalSubParser
     commands: Optional[Dict[str, Callable[..., Any]]]
 
     def __init__(
@@ -185,7 +219,7 @@ class ConfiguredParser:
         self.version = config["version"]
         self.add_help = add_help
         self.parser = self.create_parser()
-        self.subparser: Optional[argparse._SubParsersAction] = None
+        self.subparser: OptionalSubParser = None
         self.commands: Optional[Dict[str, Callable[..., Any]]] = None
 
     def create_parser(self) -> argparse.ArgumentParser:
@@ -220,7 +254,7 @@ class ConfiguredParser:
 
     def create_subparser(
         self,
-    ) -> argparse._SubParsersAction:
+    ) -> argparse._SubParsersAction:  # type: ignore
         """
         Create configured subparser to add commands.
 
@@ -269,7 +303,7 @@ class ConfiguredParser:
         )
         argparse_command: argparse.ArgumentParser = self.subparser.add_parser(
             alias if alias else command.__name__,
-            help=argparse_help,
+            help=argparse_help.split("\n", maxsplit=1)[0],
         )
         self.commands[alias if alias else command.__name__] = decorate_kwargs(
             command
@@ -301,20 +335,21 @@ class ConfiguredParser:
         for command in (
             self.subparser._choices_actions if self.subparser else []
         ):
-            for param in inspect.signature(
-                self.commands[command.dest]
-            ).parameters.values():
+            command_call = self.commands[command.dest]  # type: ignore
+            for param in inspect.signature(command_call).parameters.values():
                 for action in (
-                    self.parser._subparsers._group_actions[0]
+                    self.parser._subparsers._group_actions[0]  # type: ignore
                     .choices[command.dest]
                     ._actions[1:]
                 ):
                     if action.dest == param.name and not action.help:
                         action.help = get_param_help_from_docstring(
-                            param.name, self.commands[command.dest]
+                            param.name, command_call
                         )
                         break
 
         namespace = self.get_arguments()
         if namespace.commands:
-            self.commands[namespace.commands](**dict(namespace._get_kwargs()))
+            self.commands[namespace.commands](  # type: ignore
+                **dict(namespace._get_kwargs())
+            )

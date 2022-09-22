@@ -10,8 +10,4 @@ def lint() -> None:
     """Lint project source code and tests."""
     for directory in PROSPECTOR_DIRECTORIES:
         print_flashy(f"Linting {directory}...")
-        # TODO run commands in selected directory
-        run_command(
-            f"prospector --profile {directory / '.prospector.yaml'} "
-            f"{directory}"
-        )
+        run_command("prospector", directory)

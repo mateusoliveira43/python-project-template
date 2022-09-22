@@ -1,7 +1,7 @@
 """Format and check Python code command."""
 
 from cly.colors import print_flashy
-from cly.utils import run_command
+from cly.utils import run_multiple_commands
 
 from ..config import PROJECT_ROOT
 
@@ -18,10 +18,17 @@ def format_code(check: bool = False) -> None:
     """
     if check:
         print_flashy("Checking code format...")
-        # TODO run both and exit status code of sum
-        run_command(f"black --check --diff {PROJECT_ROOT}")
-        run_command(f"isort --check --diff {PROJECT_ROOT}")
+        run_multiple_commands(
+            [
+                (f"black --check --diff {PROJECT_ROOT}", None),
+                (f"isort --check --diff {PROJECT_ROOT}", None),
+            ]
+        )
     else:
         print_flashy("Formatting code...")
-        run_command(f"black {PROJECT_ROOT}")
-        run_command(f"isort {PROJECT_ROOT}")
+        run_multiple_commands(
+            [
+                (f"black {PROJECT_ROOT}", None),
+                (f"isort {PROJECT_ROOT}", None),
+            ]
+        )
