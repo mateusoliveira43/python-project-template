@@ -59,14 +59,14 @@ def get_help_from_docstring(command: Callable[..., Any]) -> str:
     docstring = inspect.getdoc(command)
     if not docstring:
         return ""
-    docstring_lines = docstring.strip().splitlines()
+    docstring_lines = docstring.strip().splitlines(keepends=True)
     help_message = ""
     for line in docstring_lines:
         if DOCSTRING_SECTIONS.get(line.strip()) or line.strip().startswith(
             (SPHINX_PARAM, SPHINX_RETURNS, SPHINX_RAISES)
         ):
             break
-        help_message += line + "\n" if line else ""
+        help_message += line
     return help_message
 
 

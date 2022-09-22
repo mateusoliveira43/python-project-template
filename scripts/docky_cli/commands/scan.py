@@ -10,12 +10,7 @@ from .run import run
 
 
 def scan_image() -> None:
-    """
-    Scan service's Image for security vulnerabilities.
-
-    You need to have an account in https://snyk.io/ to execute the scan.
-
-    """
+    """Scan service's Image for security vulnerabilities."""
     token = read_env_file()["SNYK_TOKEN"]
     if not token:
         alert_error(
@@ -45,7 +40,12 @@ def scan_image() -> None:
 
 
 def scan() -> None:
-    """Scan service's Image for security vulnerabilities."""
+    """
+    Scan service's Image for security vulnerabilities.
+
+    You need to have an account in https://snyk.io/ to execute the scan.
+
+    """
     create_env_file()
     check_docker()
     scan_image()
