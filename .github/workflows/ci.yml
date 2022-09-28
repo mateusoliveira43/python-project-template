@@ -120,7 +120,6 @@ jobs:
 
       - name: Check version
         run: |
-          echo "${{ fromJson(steps.versioning.outputs) }}"
           echo ${{ steps.versioning.outputs.* }}
           echo ${{ steps.versioning.outputs.info.isVersionNew }}
           echo ${{ steps.versioning.outputs.info.version }}
