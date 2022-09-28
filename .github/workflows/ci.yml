@@ -113,25 +113,28 @@ jobs:
       - name: Code format
         run: ec -verbose
 
-      # TODO CD!!! just for tests
+  # TODO CD!!! just for tests
+  versioning:
+    runs-on: ubuntu-latest
+    outputs:
+      info: ${{ steps.versioning.outputs.info }}
+    steps:
       - name: Versioning
         id: versioning
         run: echo "::set-output name=info::$(./scripts/versioning.py)"
 
+  check-versioning:
+    runs-on: ubuntu-latest
+    needs: versioning
+    steps:
       - name: Check version
-        env:
-          info: ${{ fromJSON(steps.versioning.outputs.info) }}
-          new: ${{ fromJSON(steps.versioning.outputs.info) }}
-          version: ${{ fromJSON(steps.versioning.outputs.info) }}
-          body: ${{ fromJSON(steps.versioning.outputs.info) }}
         run: |
-          echo ${{ env.info }}
-          echo ${{ env.new }}
-          echo ${{ env.version }}
-          echo ${{ env.body }}
+          echo ${{ needs.versioning.outputs.info }}
+          echo ${{ needs.versioning.outputs.info.* }}
+          echo ${{ fromJson(needs.versioning.outputs.info) }}
 
-      - name: Check if
-        env:
-          new: ${{ fromJSON(steps.versioning.outputs.info) }}
-        if: env.new
-        run: echo "A versão é nova :)"
+      # - name: Check if
+      #   env:
+      #     new: ${{ fromJSON(steps.versioning.outputs.info) }}
+      #   if: env.new
+      #   run: echo "A versão é nova :)"
