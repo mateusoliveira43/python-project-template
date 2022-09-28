@@ -3,7 +3,7 @@
 import json
 
 versioning = {
-    "isVersionNew": True,
+    "isVersionNew": False,
     "version": "1.0.0",
     "releaseBody": "## 1.0.0\n\nTeste teste teste\n",
 }
