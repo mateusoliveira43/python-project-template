@@ -119,14 +119,18 @@ jobs:
     outputs:
       info: ${{ steps.versioning.outputs.info }}
     steps:
+      - uses: actions/checkout@v3
       - name: Versioning
         id: versioning
-        run: echo "::set-output name=info::$(./scripts/versioning.py)"
+        run: |
+          version=$(./scripts/versioning.py)
+          echo "::set-output name=info::$version"
 
   check-versioning:
     runs-on: ubuntu-latest
     needs: versioning
     steps:
+      # - uses: actions/checkout@v3
       - name: Check version
         run: |
           echo "${{ fromJson(needs.versioning.outputs.info).isVersionNew }}"
