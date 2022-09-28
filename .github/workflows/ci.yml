@@ -119,12 +119,19 @@ jobs:
         run: echo "::set-output name=info::$(./scripts/versioning.py)"
 
       - name: Check version
+        env:
+          info: ${{ fromJSON(steps.versioning.outputs.info) }}
+          new: ${{ fromJSON(steps.versioning.outputs.info) }}
+          version: ${{ fromJSON(steps.versioning.outputs.info) }}
+          body: ${{ fromJSON(steps.versioning.outputs.info) }}
         run: |
-          echo ${{ steps.versioning.outputs.* }}
-          echo ${{ steps.versioning.outputs.info.isVersionNew }}
-          echo ${{ steps.versioning.outputs.info.version }}
-          echo ${{ steps.versioning.outputs.info.releaseBody }}
+          echo ${{ env.info }}
+          echo ${{ env.new }}
+          echo ${{ env.version }}
+          echo ${{ env.body }}
 
       - name: Check if
-        if: steps.versioning.outputs.info.isVersionNew
+        env:
+          new: ${{ fromJSON(steps.versioning.outputs.info) }}
+        if: env.new
         run: echo "A versão é nova :)"
