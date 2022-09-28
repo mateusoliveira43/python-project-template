@@ -122,9 +122,9 @@ jobs:
 
       - name: Check version
         run: |
-          echo ${{ fromJson(steps.versioning.outputs.info).isVersionNew }}
-          echo ${{ fromJson(steps.versioning.outputs.info).version }}
-          echo ${{ fromJson(steps.versioning.outputs.info).releaseBody }}
+          echo "${{ fromJson(steps.versioning.outputs.info).isVersionNew }}"
+          echo "${{ fromJson(steps.versioning.outputs.info).version }}"
+          echo "${{ fromJson(steps.versioning.outputs.info).releaseBody }}"
 
       - name: Check if
         if: fromJson(steps.versioning.outputs.info).isVersionNew
