@@ -129,11 +129,10 @@ jobs:
     steps:
       - name: Check version
         run: |
-          echo ${{ needs.versioning.outputs.info }}
-          echo ${{ needs.versioning.outputs.info.* }}
-          echo ${{ needs.versioning.outputs.info.isVersionNew }}
-          echo ${{ needs.versioning.outputs.info.version }}
-          echo ${{ needs.versioning.outputs.info.releaseBody }}
+          echo "${{ fromJson(needs.versioning.outputs.info) }}"
+          echo "${{ fromJson(needs.versioning.outputs.info).isVersionNew }}"
+          echo "${{ fromJson(needs.versioning.outputs.info).version }}"
+          echo "${{ fromJson(needs.versioning.outputs.info).releaseBody }}"
 
       # - name: Check if
       #   env:
