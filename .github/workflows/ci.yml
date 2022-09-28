@@ -120,11 +120,11 @@ jobs:
 
       - name: Check version
         run: |
-          echo ${{ steps.versioning.info }}
-          echo ${{ steps.versioning.info.isVersionNew }}
-          echo ${{ steps.versioning.info.version }}
-          echo ${{ steps.versioning.info.releaseBody }}
+          echo ${{ fromJson(steps.versioning.info) }}
+          echo ${{ fromJson(steps.versioning.info.isVersionNew) }}
+          echo ${{ fromJson(steps.versioning.info.version) }}
+          echo ${{ fromJson(steps.versioning.info.releaseBody) }}
 
       - name: Check if
-        if: steps.versioning.info.isVersionNew
+        if: fromJson(steps.versioning.info.isVersionNew)
         run: echo "A versão é nova :)"
