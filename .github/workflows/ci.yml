@@ -131,7 +131,6 @@ jobs:
         run: |
           echo ${{ needs.versioning.outputs.info }}
           echo ${{ needs.versioning.outputs.info.* }}
-          echo ${{ fromJson(needs.versioning.outputs.info) }}
 
       # - name: Check if
       #   env:
