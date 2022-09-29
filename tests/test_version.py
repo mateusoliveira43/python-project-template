@@ -8,7 +8,9 @@ import pytest
 import toml
 
 import source
-from scripts.cly.utils import get_standard_output
+from scripts.cly.utils import (  # pylint: disable=wrong-import-order
+    get_standard_output,
+)
 
 VERSION_LABELS = source.__version__.split(".", maxsplit=2)
 
@@ -69,10 +71,12 @@ class TestSemanticVersioning(TestCase):
         )[0]
         cls.previous_version_labels = previous_version.split(".", maxsplit=2)
 
-    def alert_increment(self, label: str) -> str:
+    @staticmethod
+    def alert_increment(label: str) -> str:
         return f"{label} version MUST be incremented."
 
-    def alert_reset(self, label: str, change: str) -> str:
+    @staticmethod
+    def alert_reset(label: str, change: str) -> str:
         return (
             f"{label} version MUST be reset to 0 when "
             f"{change} version is incremented."

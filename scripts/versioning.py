@@ -1,4 +1,17 @@
 #!/usr/bin/env python3
+"""
+Get versioning information for CD pipeline of the project in JSON format.
+
+Gets the following information in JSON format:
+- if version is new (isVersionNew key).
+- the version (version key).
+- the text for the release (releaseBody key).
+
+This information is used by the Continuous Delivery pipeline of the project to
+automatically create a tag and release for the project, or, add latest changes
+to Release Notes (changelog) in the documentation.
+
+"""
 
 import json
 from pathlib import Path
@@ -25,7 +38,8 @@ def get_release_body() -> str:
     text = ""
     append = False
     with open(
-        Path(__file__).parent.parent / "docs/changelog.rst"
+        Path(__file__).parent.parent / "docs/changelog.rst",
+        encoding="utf-8",
     ) as changelog:
         for line in changelog:
             if line.strip() == previous_version[0]:
