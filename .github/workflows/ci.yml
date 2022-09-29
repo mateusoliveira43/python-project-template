@@ -112,20 +112,3 @@ jobs:
 
       - name: Code format
         run: ec -verbose
-
-      # TODO CD!!! just for tests
-      - name: Versioning
-        id: versioning
-        run: |
-          versioning=$(./scripts/versioning.py)
-          echo "::set-output name=info::$versioning"
-
-      - name: Check version
-        run: |
-          echo "${{ fromJson(steps.versioning.outputs.info).isVersionNew }}"
-          echo "${{ fromJson(steps.versioning.outputs.info).version }}"
-          echo "${{ fromJson(steps.versioning.outputs.info).releaseBody }}"
-
-      - name: Check if
-        if: fromJson(steps.versioning.outputs.info).isVersionNew
-        run: echo "A versão é nova :)"

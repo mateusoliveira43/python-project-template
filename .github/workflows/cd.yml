@@ -34,3 +34,37 @@ jobs:
         with:
           branch: gh-pages
           folder: public
+
+  # versioning:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         ref: ${{ github.event.push.head.sha }}
+  #         fetch-depth: 0
+
+  #     - name: Get version information
+  #       id: versioning
+  #       run: |
+  #         versioning=$(./scripts/versioning.py)
+  #         echo "::set-output name=info::$versioning"
+
+  #     - name: Get version information
+  #       run: |
+  #         echo "${{ fromJson(steps.versioning.outputs.info).isVersionNew }}"
+  #         echo "${{ fromJson(steps.versioning.outputs.info).version }}"
+  #         echo "${{ fromJson(steps.versioning.outputs.info).releaseBody }}"
+
+  #     - uses: ncipollo/release-action@v1
+  #       if: fromJson(steps.versioning.outputs.info).isVersionNew
+  #       with:
+  #         commit: ${{ github.event.push.head.sha }}
+  #         tag: ${{ fromJson(steps.versioning.outputs.info).version }}
+  #         body: ${{ fromJson(steps.versioning.outputs.info).releaseBody }}
+
+  #     - uses: docker://tiangolo/latest-changes:0.0.3
+  #       if: ${{ !fromJson(steps.versioning.outputs.info).isVersionNew }}
+  #       with:
+  #         latest_changes_file: docs/changelog.rst
+  #         latest_changes_header: 'Latest Changes\n--------------\n\n'
+  #         token: ${{ secrets.GITHUB_TOKEN }}
