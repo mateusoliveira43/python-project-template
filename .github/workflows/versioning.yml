@@ -1,0 +1,46 @@
+# name: CD Versioning
+
+# on:
+#   pull_request_target:
+#     branches:
+#       - main
+#     types:
+#       - closed
+
+# permissions:
+#   contents: write
+
+# jobs:
+#   versioning:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0
+#           token: ${{ secrets.ACTIONS_TOKEN }}
+
+#       - uses: actions/setup-python@v4
+#         with:
+#           python-version: "3.11"
+
+#       - name: Get version information
+#         id: versioning
+#         run: |
+#           pip install -e .
+#           versioning=$(./scripts/versioning.py)
+#           echo "info=$versioning" >> $GITHUB_OUTPUT
+
+#       - uses: ncipollo/release-action@v1
+#         if: fromJson(steps.versioning.outputs.info).isVersionNew
+#         with:
+#           commit: ${{ github.event.push.head.sha }}
+#           tag: ${{ fromJson(steps.versioning.outputs.info).version }}
+#           body: ${{ fromJson(steps.versioning.outputs.info).releaseBody }}
+
+#       - uses: docker://tiangolo/latest-changes:0.0.3
+#         if: ${{ !fromJson(steps.versioning.outputs.info).isVersionNew }}
+#         with:
+#           latest_changes_file: docs/changelog.rst
+#           latest_changes_header: 'Latest Changes\n--------------\n\n'
+#           template_file: ./.github/workflows/changelog_template.jinja2
+#           token: ${{ secrets.GITHUB_TOKEN }}

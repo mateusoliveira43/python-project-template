@@ -1,5 +1,3 @@
-"""Test project version."""
-
 from pathlib import Path
 from typing import List
 from unittest import TestCase
@@ -8,21 +6,39 @@ import pytest
 import toml
 
 import source
-from scripts.cly.utils import (  # pylint: disable=wrong-import-order
-    get_standard_output,
-)
+from scripts.cly.utils import get_standard_output
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 VERSION_LABELS = source.__version__.split(".", maxsplit=2)
 
 
-def test_project_version() -> None:
+def read_variable_from_file(variable_name: str, file_path: Path) -> str:
+    """
+    Read a variable from a file.
+    Parameters
+    ----------
+    variable_name : str
+        Name of the variable in the file.
+    file_path : Path
+        Path of the file to be read.
+    Returns
+    -------
+    str
+        Variable value, if it exists in the file; empty string otherwise.
+    """
+    with open(file_path, mode="r", encoding="utf-8") as file:
+        for line in file:
+            if line.strip().startswith(variable_name):
+                return line.strip().split("=", maxsplit=1)[1].strip()
+        return ""
+
+
+def test_pyproject_version() -> None:
     """
     Test if project's versions are the same.
-
     GIVEN `pyproject.toml:version` and `source.__version__`
     WHEN compared
     THEN they should be the same
-
     """
     with open(
         Path(source.__file__).resolve().parents[1] / "pyproject.toml",
@@ -41,24 +57,17 @@ def test_project_version() -> None:
 def test_version_format(label: str) -> None:
     """
     Test if project's version is in the correct format.
-
     GIVEN one of `source.__version__` labels
     WHEN checked it's characters
     THEN they should be digits
-
     Parameters
     ----------
     label : str
         One of the labels of the project's version.
-
     """
     assert label.isdigit()
 
 
-@pytest.mark.skipif(
-    get_standard_output("git describe --tag --abbrev=0") is None,
-    reason="No previous version",
-)
 class TestSemanticVersioning(TestCase):
     """Test semantic versioning as described in https://semver.org/."""
 
@@ -66,10 +75,13 @@ class TestSemanticVersioning(TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        previous_version = get_standard_output(
-            "git describe --tag --abbrev=0"
-        )[0]
-        cls.previous_version_labels = previous_version.split(".", maxsplit=2)
+        previous_version = get_standard_output("git describe --tag --abbrev=0")
+        if isinstance(previous_version, list):
+            cls.previous_version_labels = previous_version[0].split(
+                ".", maxsplit=2
+            )
+        else:
+            pytest.skip(reason="No previous version")
 
     @staticmethod
     def alert_increment(label: str) -> str:
