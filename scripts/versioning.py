@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 Get versioning information for CD pipeline of the project in JSON format.
+
 Gets the following information in JSON format:
 - if version is new (isVersionNew key).
 - the version (version key).
@@ -8,6 +9,7 @@ Gets the following information in JSON format:
 This information is used by the Continuous Delivery pipeline of the project to
 automatically create a tag and release for the project, or, add latest changes
 to Release Notes (changelog) in the documentation.
+
 """
 
 import json
@@ -29,12 +31,15 @@ previous_version = (
 def get_release_body() -> str:
     """
     Get text for GitHub Release.
+
     Gets text between new version and previous version from docs/changelog.rst
     file.
+
     Returns
     -------
     str
         Text between new version and previous version.
+
     """
     text = ""
     append = False
