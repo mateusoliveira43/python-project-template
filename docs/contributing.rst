@@ -31,4 +31,5 @@ For the first release, the entire versioning pipeline file,
 releasing pull request, along with the ``on.push.paths`` both in
 ``.github/workflows/ci.yml`` and ``.github/workflows/cd.yml`` files, and
 ``Check version information`` step in ``project-check.steps`` in
-``.github/workflows/ci.yml`` file.
+``.github/workflows/ci.yml`` file. Also, a Personal Access Token named
+**ACTIONS_TOKEN** must be added to Actions secrets, in the repository settings.
