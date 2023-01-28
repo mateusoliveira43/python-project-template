@@ -22,11 +22,13 @@ jobs:
           cache-dependency-path: "requirements/*.txt"
 
       - name: Install Python dependencies
-        run: pip install -r requirements/dev.txt
-      - name: Generate documentation
         run: |
-          sphinx-apidoc --module-first --private --output-dir docs/modules cly
-          sphinx-build -v -n -a docs public
+          pip install -r requirements/prod.txt
+          pip install -r requirements/dev.txt
+          pip install -e .
+
+      - name: Generate documentation
+        run: dev doc
 
       - name: Deploy documentation
         uses: JamesIves/github-pages-deploy-action@v4
