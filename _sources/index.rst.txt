@@ -13,4 +13,6 @@ Check the project `README <https://github.com/mateusoliveira43/python-project-te
    :maxdepth: 2
    :hidden:
 
+   contributing.rst
+   changelog.rst
    modules/modules.rst
