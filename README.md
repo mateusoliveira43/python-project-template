@@ -106,7 +106,7 @@ Run the commands of the following sections in the Container.
 To update requirements files, run
 ```
 poetry export --format requirements.txt --output requirements/prod.txt
-poetry export --format requirements.txt --output requirements/dev.txt --dev
+poetry export --format requirements.txt --output requirements/dev.txt --with dev
 ```
 
 ## Quality
