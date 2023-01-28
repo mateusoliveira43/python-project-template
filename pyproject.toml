@@ -18,7 +18,7 @@ mypy = "^0.971"
 pre-commit = "^2.19.0"
 prospector = "^1.7.7"
 pytest = "^7.1.2"
-pytest-cov = "^3.0.0"
+pytest-cov = "^4.0.0"
 safety = "^2.1.1"
 Sphinx = "^5.0.2"
 sphinx-rtd-theme = "^1.0.0"
@@ -47,6 +47,12 @@ addopts = [
 python_version = "3.7"
 strict = true
 show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = [
+    "scripts.*",
+]
+ignore_missing_imports = true
 
 [tool.black]
 line-length = 79
