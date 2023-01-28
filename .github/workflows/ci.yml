@@ -13,7 +13,7 @@ on:
     - cron:  '0 0 * * 1' # Every Monday at 00:00 UTC
 
 jobs:
-  build:
+  python-check:
     runs-on: ubuntu-latest
     strategy:
       matrix:
