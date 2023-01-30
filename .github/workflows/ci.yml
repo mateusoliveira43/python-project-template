@@ -85,7 +85,7 @@ jobs:
         run: docker build --tag python-project-template - < docker/Dockerfile
 
       - name: Dockerfile linter
-        uses: hadolint/hadolint-action@v2.0.0
+        uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: docker/Dockerfile
 
