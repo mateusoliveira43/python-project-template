@@ -17,7 +17,8 @@ CLI_CONFIG = {
 
 CLI = config.ConfiguredParser(CLI_CONFIG)
 
-CLI.create_command(lint)
+lint_command = CLI.create_command(lint)
+lint_command.add_argument("--shell", action="store_true")
 format_command = CLI.create_command(format_code, alias="format")
 format_command.add_argument("--check", action="store_true")
 scan_command = CLI.create_command(scan)

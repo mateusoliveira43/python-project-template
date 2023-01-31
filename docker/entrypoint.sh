@@ -3,4 +3,4 @@
 if ! test -d '.venv/bin'; then
     poetry install
 fi
-exec poetry run $@
+exec poetry run "$@"

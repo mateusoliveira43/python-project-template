@@ -38,6 +38,10 @@ repos:
     rev: v2.10.0
     hooks:
     - id: hadolint-docker
+  - repo: https://github.com/koalaman/shellcheck-precommit
+    rev: v0.9.0
+    hooks:
+    - id: shellcheck
 
 ci:
   autofix_commit_msg: 🎨 pre-commit auto format
