@@ -133,7 +133,7 @@ mypy .
 
 Python type checker configuration in [`pyproject.toml`](pyproject.toml) file, at `[tool.mypy]` section.
 
-### Linter
+### Linters
 
 To run Python linter, run
 ```
@@ -141,6 +141,11 @@ dev lint
 ```
 
 Python linter configuration in [`.prospector.yaml`](.prospector.yaml) and [`tests/.prospector.yaml`](tests/.prospector.yaml) files.
+
+To run Shell script linter, run
+```
+dev lint --shell
+```
 
 ### Code formatters
 
