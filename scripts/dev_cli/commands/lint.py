@@ -25,7 +25,7 @@ def lint(shell: bool = False) -> None:
         ]
         names = " ".join(shell_files)
         print_flashy("Linting shell file(s)...")
-        run_command(f"shellcheck {names}")
+        run_command(f"shellcheck --enable=all --severity=style {names}")
     else:
         for directory in PROSPECTOR_DIRECTORIES:
             print_flashy(f"Linting {directory}...")
