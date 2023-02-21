@@ -144,7 +144,7 @@ Python linter configuration in [`.prospector.yaml`](.prospector.yaml) and [`test
 
 To run Shell script linter, run
 ```
-shellcheck $(find -name '*.sh' -type f | grep -v '.venv/\|.git/\|.pytest_cache/')
+dev lint --shell
 ```
 
 ### Code formatters

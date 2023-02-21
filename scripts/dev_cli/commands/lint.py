@@ -24,7 +24,7 @@ def lint(shell: bool = False) -> None:
             if all(ignore not in file.as_posix() for ignore in [".venv/"])
         ]
         names = " ".join(shell_files)
-        print_flashy(f"Linting shell file(s)...")
+        print_flashy("Linting shell file(s)...")
         run_command(f"shellcheck {names}")
     else:
         for directory in PROSPECTOR_DIRECTORIES:
