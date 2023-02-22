@@ -15,7 +15,7 @@ def requirements() -> None:
 
     """
     base_command = (
-        f"docker container run -ti -w /tests -v {PROJECT_ROOT}:/tests --rm "
+        f"docker container run -w /tests -v {PROJECT_ROOT}:/tests --rm "
         "mateusoliveira43/poetry poetry export --format requirements.txt "
         "--output"
     )
