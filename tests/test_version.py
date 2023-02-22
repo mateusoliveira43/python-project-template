@@ -4,7 +4,7 @@ from unittest import TestCase
 
 import pytest
 import toml
-from cly.utils import get_standard_output
+from cly.utils import get_standard_output  # pylint: disable=import-error
 
 import source
 
