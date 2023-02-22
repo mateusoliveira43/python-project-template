@@ -6,6 +6,7 @@ from . import __version__
 from .commands.doc import doc
 from .commands.format_code import format_code
 from .commands.lint import lint
+from .commands.requirements import requirements
 from .commands.scan import scan
 
 CLI_CONFIG = {
@@ -33,3 +34,4 @@ group.add_argument(
 )
 doc_command = CLI.create_command(doc)
 doc_command.add_argument("--check", action="store_true")
+CLI.create_command(requirements)

@@ -128,5 +128,10 @@ jobs:
       - name: Shell script linter
         run: dev lint --shell
 
+      - name: Check if requirements are up to date
+        run: |
+          dev requirements
+          test -z "$(git status --short)"
+
       # - name: Check version information
       #   run: ./scripts/versioning.py
