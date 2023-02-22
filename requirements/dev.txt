@@ -602,9 +602,9 @@ typed-ast==1.5.4 ; python_version >= "3.7" and python_version < "3.8" \
     --hash=sha256:cf4afcfac006ece570e32d6fa90ab74a17245b83dfd6655a6f68568098345ff6 \
     --hash=sha256:ebd9d7f80ccf7a82ac5f88c521115cc55d84e35bf8b446fcd7836eb6b98929a3 \
     --hash=sha256:ed855bbe3eb3715fca349c80174cfcfd699c2f9de574d40527b8429acae23a66
-types-toml==0.10.8.1 ; python_version >= "3.7" and python_version < "4.0" \
-    --hash=sha256:171bdb3163d79a520560f24ba916a9fc9bff81659c5448a9fea89240923722be \
-    --hash=sha256:b7b5c4977f96ab7b5ac06d8a6590d17c0bf252a96efc03b109c2711fb3e0eafd
+types-toml==0.10.8.5 ; python_version >= "3.7" and python_version < "4.0" \
+    --hash=sha256:2432017febe43174af0f3c65f03116e3d3cf43e7e1406b8200e106da8cf98992 \
+    --hash=sha256:bf80fce7d2d74be91148f47b88d9ae5adeb1024abef22aa2fdbabc036d6b8b3c
 typing-extensions==4.4.0 ; python_version >= "3.7" and python_version < "4.0" \
     --hash=sha256:1511434bb92bf8dd198c12b1cc812e800d4181cfcb867674e0f8279cc93087aa \
     --hash=sha256:16fa4864408f655d35ec496218b85f79b3437c829e93320c7c9215ccfd92489e

@@ -23,7 +23,7 @@ safety = "^2.1.1"
 Sphinx = "^5.0.2"
 sphinx-rtd-theme = "^1.2.0"
 toml = "^0.10.2"
-types-toml = "^0.10.7"
+types-toml = "^0.10.8"
 
 [tool.poetry.scripts]
 dev = "scripts.dev_cli.__main__:CLI"
