@@ -43,7 +43,7 @@ def run_cli(
                             cli()
                             exit_code = 0
                         except SystemExit as sys_exit:  # NOSONAR
-                            exit_code = sys_exit.code
+                            exit_code = sys_exit.code  # type: ignore
             stderr.seek(0, 0)
             standard_error = stderr.read()
         stdout.seek(0, 0)

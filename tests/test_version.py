@@ -4,11 +4,9 @@ from unittest import TestCase
 
 import pytest
 import toml
+from cly.utils import get_standard_output  # pylint: disable=import-error
 
 import source
-from scripts.cly.utils import (  # pylint: disable=wrong-import-order
-    get_standard_output,
-)
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 VERSION_LABELS = source.__version__.split(".", maxsplit=2)
