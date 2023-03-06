@@ -582,7 +582,7 @@ toml==0.10.2 ; python_version >= "3.7" and python_version < "4.0" \
 tomli==2.0.1 ; python_version >= "3.7" and python_full_version < "3.11.0a7" \
     --hash=sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc \
     --hash=sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f
-typed-ast==1.5.4 ; python_version >= "3.7" and python_version < "3.8" \
+typed-ast==1.5.4 ; python_version < "3.8" and python_version >= "3.7" \
     --hash=sha256:0261195c2062caf107831e92a76764c81227dae162c4f75192c0d489faf751a2 \
     --hash=sha256:0fdbcf2fef0ca421a3f5912555804296f0b0960f0418c440f5d6d3abb549f3e1 \
     --hash=sha256:183afdf0ec5b1b211724dfef3d2cad2d767cbefac291f24d69b00546c1837fb6 \
